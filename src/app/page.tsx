@@ -1,3 +1,7 @@
+import App from "@/components/layout/app";
+
 export default function Home() {
-  return <h1>Body</h1>;
+  // TODO: Load data
+
+  return <App />;
 }
