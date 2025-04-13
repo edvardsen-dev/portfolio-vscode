@@ -1,3 +1,4 @@
+import { about } from "@/content/about";
 import { useData } from "@/context/data-context";
 import { FileTreeItem, TFile } from "@/types";
 import { isFolder } from "@/utils";
@@ -25,7 +26,7 @@ export default function Explorer({
       name: "README.md",
       extension: "md",
       icon: "/icons/readme.svg",
-      content: "# Hello World",
+      content: about,
     },
     {
       type: "folder",
@@ -34,7 +35,7 @@ export default function Explorer({
       children: projects.map((project) => ({
         type: "file",
         name: project.title,
-        extension: "json",
+        extension: "md",
         icon: "/icons/markdown.svg",
         content: project.description,
       })),

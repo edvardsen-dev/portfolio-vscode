@@ -11,6 +11,7 @@ import { Education } from "@/features/educations/types";
 import DataProvider from "@/context/data-context";
 import { TFile } from "@/types";
 import Code from "./code";
+import MarkdownRender from "./markdown-render";
 
 interface AppProps {
   projects: Project[];
@@ -23,6 +24,7 @@ export default function App({ projects, experiences, educations }: AppProps) {
     useState<MainSidebarItem>("explorer");
   const [selectedFiles, setSelectedFiles] = useState<TFile[]>([]);
   const [activeFile, setActiveFile] = useState<TFile | null>(null);
+  const [showMarkdownPreview, setShowMarkdownPreview] = useState(false);
 
   function handleSelectFile(file: TFile) {
     setActiveFile(file);
@@ -35,11 +37,17 @@ export default function App({ projects, experiences, educations }: AppProps) {
 
   function handleCloseFile(file: TFile) {
     setSelectedFiles((prev) => {
-      if (prev.length === 1) {
+      const filteredFiles = prev.filter((f) => f.name !== file.name);
+      if (filteredFiles.length === 0) {
         setActiveFile(null);
+      } else {
+        setActiveFile(filteredFiles[filteredFiles.length - 1]);
       }
-      return prev.filter((f) => f.name !== file.name);
+      return filteredFiles;
     });
+    if (file.name === activeFile?.name) {
+      setShowMarkdownPreview(false);
+    }
   }
 
   return (
@@ -58,14 +66,29 @@ export default function App({ projects, experiences, educations }: AppProps) {
             activeMainSidebarItem={activeMainSidebarItem}
             onFileSelect={handleSelectFile}
           />
-          <div className="flex-grow flex flex-col">
-            <Tabs
-              activeFile={activeFile}
-              selectedFiles={selectedFiles}
-              onFileSelect={(file: TFile) => setActiveFile(file)}
-              onCloseFile={handleCloseFile}
-            />
-            <Code file={activeFile} />
+          <div
+            className="grid"
+            style={{
+              gridTemplateColumns: showMarkdownPreview ? "1fr 1fr" : "1fr",
+            }}
+          >
+            <div className="flex flex-col">
+              <Tabs
+                activeFile={activeFile}
+                selectedFiles={selectedFiles}
+                showMarkdownPreview={showMarkdownPreview}
+                onFileSelect={(file: TFile) => setActiveFile(file)}
+                onCloseFile={handleCloseFile}
+                onShowMarkdownPreview={() => setShowMarkdownPreview(true)}
+              />
+              <Code file={activeFile} />
+            </div>
+            {showMarkdownPreview && activeFile?.extension === "md" && (
+              <MarkdownRender
+                file={activeFile}
+                onCloseMarkdownPreview={() => setShowMarkdownPreview(false)}
+              />
+            )}
           </div>
         </div>
       </div>

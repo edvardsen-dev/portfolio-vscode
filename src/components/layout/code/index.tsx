@@ -3,7 +3,6 @@ import CodeMirror from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import InlineCode from "@/components/ui/inline-code";
-import { about } from "@/content/about";
 import { githubDark } from "@uiw/codemirror-theme-github";
 
 interface CodeProps {
@@ -32,7 +31,7 @@ const tips = [
 
 export default function Code(props: CodeProps) {
   return (
-    <div className="flex-grow">
+    <div className="h-full">
       <CodeInner {...props} />
     </div>
   );
@@ -63,7 +62,7 @@ function CodeInner({ file }: CodeProps) {
 
   return (
     <CodeMirror
-      value={about}
+      value={file.content}
       theme={githubDark}
       editable={false}
       extensions={[
