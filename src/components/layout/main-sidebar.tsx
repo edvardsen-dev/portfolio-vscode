@@ -6,7 +6,6 @@ import {
   LayoutGrid,
   Search,
   Settings,
-  User,
 } from "lucide-react";
 import { Button } from "../ui/button";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "./header";
 import MainSidebar, { MainSidebarItem } from "./main-sidebar";
 import Sidebar from "./sidebar";

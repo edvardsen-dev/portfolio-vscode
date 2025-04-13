@@ -38,7 +38,7 @@ export default function Header() {
           alt="Joakim Edvardsen Memoji"
           className="size-6"
         />
-        {listItems.map((item, index) => (
+        {listItems.map((item) => (
           <Button key={item} variant="ghost" size="sm" onClick={notImplemented}>
             <li>{item}</li>
           </Button>
