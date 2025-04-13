@@ -9,7 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@codemirror/lang-markdown": "^6.3.2",
+    "@codemirror/language-data": "^6.5.1",
+    "@lezer/highlight": "^1.2.1",
     "@radix-ui/react-slot": "^1.2.0",
+    "@uiw/codemirror-theme-github": "^4.23.10",
+    "@uiw/codemirror-themes": "^4.23.10",
+    "@uiw/react-codemirror": "^4.23.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.487.0",

@@ -1,8 +1,13 @@
-import InlineCode from "../ui/inline-code";
-import { Item } from "./sidebar/explorer";
+import { TFile } from "@/types";
+import CodeMirror from "@uiw/react-codemirror";
+import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
+import { languages } from "@codemirror/language-data";
+import InlineCode from "@/components/ui/inline-code";
+import { about } from "@/content/about";
+import { githubDark } from "@uiw/codemirror-theme-github";
 
 interface CodeProps {
-  file: Item | null;
+  file: TFile | null;
 }
 
 const tips = [
@@ -56,5 +61,14 @@ function CodeInner({ file }: CodeProps) {
     );
   }
 
-  return <p>{file.content}</p>;
+  return (
+    <CodeMirror
+      value={about}
+      theme={githubDark}
+      editable={false}
+      extensions={[
+        markdown({ base: markdownLanguage, codeLanguages: languages }),
+      ]}
+    />
+  );
 }

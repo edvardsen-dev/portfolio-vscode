@@ -4,13 +4,13 @@ import { useState } from "react";
 import Header from "./header";
 import MainSidebar, { MainSidebarItem } from "./main-sidebar";
 import Sidebar from "./sidebar";
-import { Item } from "./sidebar/explorer";
 import Tabs from "./tabs";
-import Code from "./code";
 import { Project } from "@/features/projects/types";
 import { Experience } from "@/features/experiences/types";
 import { Education } from "@/features/educations/types";
 import DataProvider from "@/context/data-context";
+import { TFile } from "@/types";
+import Code from "./code";
 
 interface AppProps {
   projects: Project[];
@@ -21,10 +21,10 @@ interface AppProps {
 export default function App({ projects, experiences, educations }: AppProps) {
   const [activeMainSidebarItem, setActiveMainSidebarItem] =
     useState<MainSidebarItem>("explorer");
-  const [selectedFiles, setSelectedFiles] = useState<Item[]>([]);
-  const [activeFile, setActiveFile] = useState<Item | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<TFile[]>([]);
+  const [activeFile, setActiveFile] = useState<TFile | null>(null);
 
-  function handleSelectFile(file: Item) {
+  function handleSelectFile(file: TFile) {
     setActiveFile(file);
 
     const found = selectedFiles.find((f) => f.name === file.name);
@@ -33,7 +33,7 @@ export default function App({ projects, experiences, educations }: AppProps) {
     setSelectedFiles((prev) => [...prev, file]);
   }
 
-  function handleCloseFile(file: Item) {
+  function handleCloseFile(file: TFile) {
     setSelectedFiles((prev) => {
       if (prev.length === 1) {
         setActiveFile(null);
@@ -62,7 +62,7 @@ export default function App({ projects, experiences, educations }: AppProps) {
             <Tabs
               activeFile={activeFile}
               selectedFiles={selectedFiles}
-              onFileSelect={(file: Item) => setActiveFile(file)}
+              onFileSelect={(file: TFile) => setActiveFile(file)}
               onCloseFile={handleCloseFile}
             />
             <Code file={activeFile} />
