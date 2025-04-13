@@ -4,6 +4,7 @@ import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import InlineCode from "@/components/ui/inline-code";
 import { githubDark } from "@uiw/codemirror-theme-github";
+import "./styles.css";
 
 interface CodeProps {
   file: TFile | null;
@@ -62,6 +63,7 @@ function CodeInner({ file }: CodeProps) {
 
   return (
     <CodeMirror
+      className="flex h-full w-full overflow-auto"
       value={file.content}
       theme={githubDark}
       editable={false}

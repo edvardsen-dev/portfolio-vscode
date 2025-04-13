@@ -1,14 +1,15 @@
+import { TFile } from "@/types";
 import { MainSidebarItem } from "../main-sidebar";
-import Explorer, { Item } from "./explorer";
+import Explorer from "./explorer";
 
 interface SidebarProps {
   activeMainSidebarItem: MainSidebarItem;
-  onFileSelect: (file: Item) => void;
+  onFileSelect: (file: TFile) => void;
 }
 
 export default function Sidebar(props: SidebarProps) {
   return (
-    <div className="border-r">
+    <div className="border-r h-full">
       <SidebarContent {...props} />
     </div>
   );

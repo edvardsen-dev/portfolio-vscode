@@ -12,6 +12,11 @@ import DataProvider from "@/context/data-context";
 import { TFile } from "@/types";
 import Code from "./code";
 import MarkdownRender from "./markdown-render";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "../ui/resizable";
 
 interface AppProps {
   projects: Project[];
@@ -54,42 +59,44 @@ export default function App({ projects, experiences, educations }: AppProps) {
     <DataProvider data={{ projects, experiences, educations }}>
       <div className="flex flex-col h-screen">
         <Header />
-        <div
-          className="grid h-full"
-          style={{ gridTemplateColumns: "auto 300px 1fr" }}
-        >
+        <div className="flex h-full">
           <MainSidebar
             activeMainSidebarItem={activeMainSidebarItem}
             setActiveMainSidebarItem={setActiveMainSidebarItem}
           />
-          <Sidebar
-            activeMainSidebarItem={activeMainSidebarItem}
-            onFileSelect={handleSelectFile}
-          />
-          <div
-            className="grid"
-            style={{
-              gridTemplateColumns: showMarkdownPreview ? "1fr 1fr" : "1fr",
-            }}
-          >
-            <div className="flex flex-col">
-              <Tabs
-                activeFile={activeFile}
-                selectedFiles={selectedFiles}
-                showMarkdownPreview={showMarkdownPreview}
-                onFileSelect={(file: TFile) => setActiveFile(file)}
-                onCloseFile={handleCloseFile}
-                onShowMarkdownPreview={() => setShowMarkdownPreview(true)}
+          <ResizablePanelGroup direction="horizontal">
+            <ResizablePanel defaultSize={15} minSize={8}>
+              <Sidebar
+                activeMainSidebarItem={activeMainSidebarItem}
+                onFileSelect={handleSelectFile}
               />
-              <Code file={activeFile} />
-            </div>
+            </ResizablePanel>
+            <ResizableHandle />
+            <ResizablePanel minSize={20}>
+              <div className="flex flex-col h-full">
+                <Tabs
+                  activeFile={activeFile}
+                  selectedFiles={selectedFiles}
+                  showMarkdownPreview={showMarkdownPreview}
+                  onFileSelect={(file: TFile) => setActiveFile(file)}
+                  onCloseFile={handleCloseFile}
+                  onShowMarkdownPreview={() => setShowMarkdownPreview(true)}
+                />
+                <Code file={activeFile} />
+              </div>
+            </ResizablePanel>
             {showMarkdownPreview && activeFile?.extension === "md" && (
-              <MarkdownRender
-                file={activeFile}
-                onCloseMarkdownPreview={() => setShowMarkdownPreview(false)}
-              />
+              <>
+                <ResizableHandle />
+                <ResizablePanel minSize={20}>
+                  <MarkdownRender
+                    file={activeFile}
+                    onCloseMarkdownPreview={() => setShowMarkdownPreview(false)}
+                  />
+                </ResizablePanel>
+              </>
             )}
-          </div>
+          </ResizablePanelGroup>
         </div>
       </div>
     </DataProvider>
