@@ -1,0 +1,12 @@
+services:
+  cms:
+    build:
+      context: ./cms
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - data:/pb/pb_data
+
+volumes:
+  data:

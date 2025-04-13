@@ -1,8 +1,10 @@
+import { useData } from "@/context/data-context";
 import { ChevronRight, File, Folder } from "lucide-react";
 import { useState } from "react";
 
 export type Item = {
   name: string;
+  icon?: string;
   content?: string;
 };
 
@@ -11,32 +13,46 @@ type FileTreeItem = {
   children?: FileTreeItem[];
 };
 
-const content = [
-  {
-    item: { name: ".gitignore", content: "/node_modules" },
-  },
-  {
-    item: { name: "README.md", content: "# Hello World" },
-  },
-  {
-    item: { name: "src" },
-    children: [
-      {
-        item: { name: "app" },
-        children: [
-          { item: { name: "layout.tsx", content: "<div>{children}</div>" } },
-          { item: { name: "page.tsx", content: "<p>Hello world</p>" } },
-        ],
-      },
-    ],
-  },
-] as const satisfies FileTreeItem[];
-
 export default function Explorer({
   onFileSelect,
 }: {
   onFileSelect: (file: Item) => void;
 }) {
+  const { projects, experiences, educations } = useData();
+  const content = [
+    {
+      item: { name: ".gitignore", content: "/node_modules" },
+    },
+    {
+      item: { name: "README.md", content: "# Hello World" },
+    },
+    {
+      item: { name: "projects" },
+      children: projects.map((project) => ({
+        item: { name: project.title, content: project.description },
+      })),
+    },
+    {
+      item: { name: "experiences" },
+      children: experiences.map((experience) => ({
+        item: {
+          name: experience.company.name,
+          icon: experience.company.logo,
+          content: experience.description,
+        },
+      })),
+    },
+    {
+      item: { name: "educations" },
+      children: educations.map((education) => ({
+        item: {
+          name: education.title,
+          content: education.description,
+        },
+      })),
+    },
+  ];
+
   return (
     <div className="text-sm px-2 relative">
       {content.map((entry) => (
@@ -81,10 +97,12 @@ function ExplorerItem({
         />
         {entry.children ? (
           <Folder className="size-4 ml-1" />
+        ) : entry.item.icon ? (
+          <img src={entry.item.icon} />
         ) : (
           <File className="size-4" />
         )}
-        <p className="ml-2">{entry.item.name}</p>
+        <p className="ml-2 truncate">{entry.item.name}</p>
       </button>
       {expanded && entry.children && (
         <div className="ml-2 border-l">

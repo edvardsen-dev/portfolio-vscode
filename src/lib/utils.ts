@@ -8,3 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export function notImplemented() {
   alert("Not implemented");
 }
+
+export function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

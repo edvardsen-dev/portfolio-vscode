@@ -8,7 +8,7 @@ interface SidebarProps {
 
 export default function Sidebar(props: SidebarProps) {
   return (
-    <div className="w-[200px] border-r">
+    <div className="border-r">
       <SidebarContent {...props} />
     </div>
   );
