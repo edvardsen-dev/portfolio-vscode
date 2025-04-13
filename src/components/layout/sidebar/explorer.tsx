@@ -2,6 +2,8 @@ import { useData } from "@/context/data-context";
 import { ChevronRight, File, Folder } from "lucide-react";
 import { useState } from "react";
 
+const CMS_BASE_PATH = process.env.NEXT_PUBLIC_CMS_BASE_PATH;
+
 export type Item = {
   name: string;
   icon?: string;
@@ -21,32 +23,45 @@ export default function Explorer({
   const { projects, experiences, educations } = useData();
   const content = [
     {
-      item: { name: ".gitignore", content: "/node_modules" },
+      item: {
+        name: ".gitignore",
+        icon: "/icons/git.svg",
+        content: "/node_modules",
+      },
     },
     {
-      item: { name: "README.md", content: "# Hello World" },
+      item: {
+        name: "README.md",
+        icon: "/icons/readme.svg",
+        content: "# Hello World",
+      },
     },
     {
-      item: { name: "projects" },
+      item: { name: "projects", icon: "/icons/folder-project.svg" },
       children: projects.map((project) => ({
-        item: { name: project.title, content: project.description },
+        item: {
+          name: project.title,
+          icon: "/icons/markdown.svg",
+          content: project.description,
+        },
       })),
     },
     {
-      item: { name: "experiences" },
+      item: { name: "experiences", icon: "/icons/folder-experience.svg" },
       children: experiences.map((experience) => ({
         item: {
           name: experience.company.name,
-          icon: experience.company.logo,
+          icon: "/icons/markdown.svg",
           content: experience.description,
         },
       })),
     },
     {
-      item: { name: "educations" },
+      item: { name: "educations", icon: "/icons/folder-education.svg" },
       children: educations.map((education) => ({
         item: {
           name: education.title,
+          icon: "/icons/json.svg",
           content: education.description,
         },
       })),
@@ -95,10 +110,10 @@ function ExplorerItem({
             entry.children ? "" : "opacity-0"
           } ${expanded ? "rotate-90" : ""}`}
         />
-        {entry.children ? (
-          <Folder className="size-4 ml-1" />
-        ) : entry.item.icon ? (
-          <img src={entry.item.icon} />
+        {entry.item.icon ? (
+          <img src={entry.item.icon} alt={entry.item.name} className="h-4" />
+        ) : entry.children ? (
+          <Folder className="size-4" />
         ) : (
           <File className="size-4" />
         )}

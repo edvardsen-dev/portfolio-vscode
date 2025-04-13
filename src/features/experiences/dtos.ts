@@ -14,7 +14,7 @@ export type ExperienceResponse = {
   description: string;
   company_name: string;
   company_logo: string;
-  compaony_link: string;
+  company_link: string;
   company_color: string;
 };
 

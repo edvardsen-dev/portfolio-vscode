@@ -13,11 +13,11 @@ export default function Tabs({
   onCloseFile: (file: Item) => void;
 }) {
   return (
-    <div className="flex border-b text-sm">
+    <div className="border-b flex flex-wrap w-full overflow-x-auto">
       {selectedFiles.map((file) => (
         <div
           key={file.name}
-          className={`flex items-center border-r border-t-2 ${
+          className={`flex items-center border-r border-t-2 w-fit ${
             activeFile?.name === file.name
               ? "border-t-primary"
               : "border-t-muted"

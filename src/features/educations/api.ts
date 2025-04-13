@@ -2,7 +2,7 @@ import { EducationsResponse } from "./dtos";
 import { mapEducationsResponseToEducation } from "./mappers";
 import { Education } from "./types";
 
-const CMS_BASE_PATH = process.env.CMS_BASE_PATH;
+const CMS_BASE_PATH = process.env.NEXT_PUBLIC_CMS_BASE_PATH;
 const ENDPOINT = `${CMS_BASE_PATH}/api/collections/educations/records`;
 
 export async function getEducations(): Promise<Education[]> {

@@ -1,4 +1,7 @@
 export type Experience = {
+  id: string;
+  collectionId: string;
+  collectionName: string;
   title: string;
   company: {
     name: string;
