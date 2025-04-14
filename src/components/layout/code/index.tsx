@@ -5,6 +5,7 @@ import { languages } from "@codemirror/language-data";
 import InlineCode from "@/components/ui/inline-code";
 import { githubDark } from "@uiw/codemirror-theme-github";
 import "./styles.css";
+import { useEditorHeight } from "@/hooks/useEditorHeight";
 
 interface CodeProps {
   file: TFile | null;
@@ -39,6 +40,8 @@ export default function Code(props: CodeProps) {
 }
 
 function CodeInner({ file }: CodeProps) {
+  const { editorHeight } = useEditorHeight();
+
   if (!file) {
     return (
       <div className="grid place-items-center h-full text-muted-foreground text-sm">
@@ -63,7 +66,8 @@ function CodeInner({ file }: CodeProps) {
 
   return (
     <CodeMirror
-      className="flex h-full w-full overflow-auto"
+      className="flex w-full"
+      style={{ height: `${editorHeight}px` }}
       value={file.content}
       theme={githubDark}
       editable={false}

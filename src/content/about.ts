@@ -42,4 +42,6 @@ I'm always open to connecting! Feel free to reach out:
 ---
 
 Thanks for stopping by!
+
+
 `;

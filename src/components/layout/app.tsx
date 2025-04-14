@@ -46,20 +46,18 @@ export default function App({ projects, experiences, educations }: AppProps) {
       if (filteredFiles.length === 0) {
         setActiveFile(null);
       } else {
-        setActiveFile(filteredFiles[filteredFiles.length - 1]);
+        const newActiveFile = filteredFiles[filteredFiles.length - 1];
+        setActiveFile(newActiveFile);
       }
       return filteredFiles;
     });
-    if (file.name === activeFile?.name) {
-      setShowMarkdownPreview(false);
-    }
   }
 
   return (
     <DataProvider data={{ projects, experiences, educations }}>
       <div className="flex flex-col h-screen">
         <Header />
-        <div className="flex h-full">
+        <div className="flex" style={{ height: "calc(100vh - 33px)" }}>
           <MainSidebar
             activeMainSidebarItem={activeMainSidebarItem}
             setActiveMainSidebarItem={setActiveMainSidebarItem}

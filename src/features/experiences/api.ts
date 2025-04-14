@@ -1,9 +1,9 @@
+import { CMS_BASE_PATH } from "@/utils";
 import { ExperiencesResponse } from "./dtos";
 import { mapExperienceResponseToExperience } from "./mappers";
 import { Experience } from "./types";
 
-const CMS_API_URL = process.env.NEXT_PUBLIC_CMS_BASE_PATH;
-const ENDPOINT = `${CMS_API_URL}/api/collections/experiences/records`;
+const ENDPOINT = `${CMS_BASE_PATH}/api/collections/experiences/records`;
 
 export async function getExperiences(): Promise<Experience[]> {
   const res = await fetch(ENDPOINT, {

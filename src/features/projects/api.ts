@@ -1,8 +1,8 @@
+import { CMS_BASE_PATH } from "@/utils";
 import { ProjectsResponse } from "./dtos";
 import { mapProjectsResponseToProject } from "./mappers";
 import { Project } from "./types";
 
-const CMS_BASE_PATH = process.env.NEXT_PUBLIC_CMS_BASE_PATH;
 const ENDPOINT = `${CMS_BASE_PATH}/api/collections/projects/records`;
 
 export async function getProjects(): Promise<Project[]> {

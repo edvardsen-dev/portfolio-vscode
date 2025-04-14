@@ -1,11 +1,12 @@
 import { about } from "@/content/about";
 import { useData } from "@/context/data-context";
+import { convertEducationToFileTreeItem } from "@/features/educations/utils";
+import { convertExperienceToFileTreeItem } from "@/features/experiences/utils";
+import { convertProjectToFileTreeItem } from "@/features/projects/utils";
 import { FileTreeItem, TFile } from "@/types";
 import { isFolder } from "@/utils";
 import { ChevronRight, File, Folder } from "lucide-react";
 import { useState } from "react";
-
-const CMS_BASE_PATH = process.env.NEXT_PUBLIC_CMS_BASE_PATH;
 
 export default function Explorer({
   onFileSelect,
@@ -32,37 +33,19 @@ export default function Explorer({
       type: "folder",
       name: "projects",
       icon: "/icons/folder-project.svg",
-      children: projects.map((project) => ({
-        type: "file",
-        name: project.title,
-        extension: "md",
-        icon: "/icons/markdown.svg",
-        content: project.description,
-      })),
+      children: projects.map(convertProjectToFileTreeItem),
     },
     {
       type: "folder",
       name: "experiences",
       icon: "/icons/folder-experience.svg",
-      children: experiences.map((experience) => ({
-        type: "file",
-        name: experience.company.name,
-        extension: "json",
-        icon: "/icons/markdown.svg",
-        content: experience.description,
-      })),
+      children: experiences.map(convertExperienceToFileTreeItem),
     },
     {
       type: "folder",
       name: "educations",
       icon: "/icons/folder-education.svg",
-      children: educations.map((education) => ({
-        type: "file",
-        name: education.title,
-        extension: "json",
-        icon: "/icons/json.svg",
-        content: education.description,
-      })),
+      children: educations.map(convertEducationToFileTreeItem),
     },
   ];
 
