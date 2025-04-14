@@ -1,4 +1,4 @@
-import App from "@/components/layout/app";
+import App from "@/components/app";
 import { getProjects } from "@/features/projects/api";
 import { getExperiences } from "@/features/experiences/api";
 import { getEducations } from "@/features/educations/api";

@@ -7,7 +7,7 @@ import {
   Search,
   Settings,
 } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 
 const topIcons = [
   {

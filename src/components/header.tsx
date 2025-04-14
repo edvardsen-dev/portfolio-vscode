@@ -8,7 +8,7 @@ import {
   Search,
   X,
 } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import { notImplemented } from "@/lib/utils";
 
 const listItems = [
