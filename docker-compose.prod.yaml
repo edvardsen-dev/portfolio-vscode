@@ -2,6 +2,6 @@ services:
   app:
     image: ghcr.io/edvardsen-dev/portfolio/vscode:latest
     environment:
-      NEXT_PUBLIC_CMS_BASE_PATH: ${CMS_BASE_PATH}
+      NEXT_PUBLIC_CMS_BASE_PATH: ${NEXT_PUBLIC_CMS_BASE_PATH}
     ports:
       - 3022:3000

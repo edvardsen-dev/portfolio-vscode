@@ -80,7 +80,7 @@ jobs:
             docker-compose -f docker-compose.prod.yaml pull
 
             # Run the docker-compose file with env variables
-            CMS_BASE_PATH=$CMS_BASE_PATH \
+            NEXT_PUBLIC_CMS_BASE_PATH=$CMS_BASE_PATH \
             docker-compose -f docker-compose.prod.yaml up -d
 
             # Clean up dangling images
