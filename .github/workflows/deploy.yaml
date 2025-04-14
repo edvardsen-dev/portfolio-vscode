@@ -23,7 +23,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t $IMAGE_URL .
+          docker build --build-arg CMS_BASE_PATH=${{ secrets.CMS_BASE_PATH }} -t $IMAGE_URL .
 
       - name: Push Docker Image
         run: |
@@ -63,12 +63,11 @@ jobs:
         env:
           GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
           GHCR_USER: ${{ github.actor }}
-          CMS_BASE_PATH: ${{ secrets.CMS_BASE_PATH }}
         with:
           host: ${{ secrets.VM_IP }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          envs: GHCR_TOKEN, GHCR_USER, IMAGE_URL, APP_DIR, CMS_BASE_PATH
+          envs: GHCR_TOKEN, GHCR_USER, IMAGE_URL, APP_DIR
           script: |
             # Log in to GitHub Container Registry
             echo "${GHCR_TOKEN}" | docker login ghcr.io -u $GHCR_USER --password-stdin
@@ -80,7 +79,6 @@ jobs:
             docker-compose -f docker-compose.prod.yaml pull
 
             # Run the docker-compose file with env variables
-            NEXT_PUBLIC_CMS_BASE_PATH=$CMS_BASE_PATH \
             docker-compose -f docker-compose.prod.yaml up -d
 
             # Clean up dangling images
