@@ -1,3 +1,5 @@
+"use client";
+
 import { TFile } from "@/types";
 import { Code, Columns2, X } from "lucide-react";
 import { Button } from "../ui/button";

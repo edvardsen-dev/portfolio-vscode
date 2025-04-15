@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header";
+import MainSidebar from "@/components/main-sidebar";
+import { ResizablePanelGroup } from "@/components/ui/resizable";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark scrollable`}
       >
-        {children}
+        <div className="flex flex-col h-screen">
+          <Header />
+          <div className="flex" style={{ height: "calc(100vh - 33px)" }}>
+            <MainSidebar />
+            <ResizablePanelGroup direction="horizontal">
+              {children}
+            </ResizablePanelGroup>
+          </div>
+        </div>
       </body>
     </html>
   );

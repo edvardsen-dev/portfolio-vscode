@@ -8,56 +8,46 @@ import {
   Settings,
 } from "lucide-react";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const topIcons = [
   {
-    id: "explorer",
+    name: "Explorer",
+    href: "/",
     icon: <File />,
   },
   {
-    id: "search",
+    name: "Search",
+    href: "/search",
     icon: <Search />,
   },
   {
-    id: "git",
+    name: "Git",
+    href: "/git",
     icon: <GitBranch />,
   },
   {
-    id: "issues",
+    name: "Issues",
+    href: "/issues",
     icon: <BugPlay />,
   },
   {
-    id: "extensions",
+    name: "Extensions",
+    href: "/extensions",
     icon: <LayoutGrid />,
   },
 ] as const;
 
 const bottomIcons = [<CircleUser />, <Settings />];
 
-export type MainSidebarItem = (typeof topIcons)[number]["id"];
-
-export default function MainSidebar({
-  activeMainSidebarItem,
-  setActiveMainSidebarItem,
-}: {
-  activeMainSidebarItem: MainSidebarItem;
-  setActiveMainSidebarItem: (item: MainSidebarItem) => void;
-}) {
+export default function MainSidebar() {
   return (
     <div className="flex flex-col justify-between border-r">
       <ul>
         {topIcons.map((item) => (
-          <li
-            key={item.id}
-            className={
-              activeMainSidebarItem === item.id
-                ? "border-l-2 border-primary"
-                : ""
-            }
-            onClick={() => setActiveMainSidebarItem(item.id)}
-          >
-            <Button variant="ghost" size="lg">
-              {item.icon}
+          <li key={item.name}>
+            <Button asChild variant="ghost" size="lg">
+              <Link href={item.href}>{item.icon}</Link>
             </Button>
           </li>
         ))}
@@ -65,8 +55,8 @@ export default function MainSidebar({
       <ul>
         {bottomIcons.map((item, index) => (
           <li key={index}>
-            <Button variant="ghost" size="lg">
-              {item}
+            <Button asChild variant="ghost" size="lg">
+              <Link href="#">{item}</Link>
             </Button>
           </li>
         ))}

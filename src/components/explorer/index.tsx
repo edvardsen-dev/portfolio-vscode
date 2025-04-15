@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { ResizableHandle, ResizablePanel } from "../ui/resizable";
 import Code from "./code";
@@ -9,16 +11,25 @@ import { about } from "@/content/about";
 import { convertProjectToFileTreeItem } from "@/features/projects/utils";
 import { convertExperienceToFileTreeItem } from "@/features/experiences/utils";
 import { convertEducationToFileTreeItem } from "@/features/educations/utils";
-import { useData } from "@/context/data-context";
 import { ChevronRight, Folder, File } from "lucide-react";
 import { isFolder } from "@/utils";
+import { Project } from "@/features/projects/types";
+import { Experience } from "@/features/experiences/types";
+import { Education } from "@/features/educations/types";
 
-export default function Explorer() {
+export default function Explorer({
+  projects,
+  experiences,
+  educations,
+}: {
+  projects: Project[];
+  experiences: Experience[];
+  educations: Education[];
+}) {
   const [selectedFiles, setSelectedFiles] = useState<TFile[]>([]);
   const [activeFile, setActiveFile] = useState<TFile | null>(null);
   const [showMarkdownPreview, setShowMarkdownPreview] = useState(false);
 
-  const { projects, experiences, educations } = useData();
   const content: FileTreeItem[] = [
     {
       type: "file",

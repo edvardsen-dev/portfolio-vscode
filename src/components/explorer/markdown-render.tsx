@@ -1,8 +1,9 @@
+"use client";
+
 import { useEditorHeight } from "@/hooks/useEditorHeight";
 import { TFile } from "@/types";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import { Newspaper, X } from "lucide-react";
-import { useState } from "react";
 
 export default function MarkdownRender({
   file,

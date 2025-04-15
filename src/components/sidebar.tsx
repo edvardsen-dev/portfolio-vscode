@@ -10,7 +10,7 @@ export default function Sidebar({
   return (
     <>
       <ResizablePanel id={id} order={0} defaultSize={15} minSize={8}>
-        <div className="border-r h-full">{children}</div>;
+        <div className="border-r h-full">{children}</div>
       </ResizablePanel>
       <ResizableHandle />
     </>
