@@ -3,7 +3,11 @@ import { getCommit } from "@/features/github/api";
 import CommitDetails from "@/features/github/components/commit-details";
 import { Suspense } from "react";
 
-export default async function GitPage({ params }: { params: { sha: string } }) {
+export default async function GitPage({
+  params,
+}: {
+  params: Promise<{ sha: string }>;
+}) {
   const { sha } = await params;
   const commit = await getCommit(sha);
 

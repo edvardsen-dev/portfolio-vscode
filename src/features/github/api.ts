@@ -32,13 +32,5 @@ export async function getCommit(sha: string): Promise<Commit> {
   );
   const data = (await res.json()) as CommitResponse;
 
-  l({
-    type: "info",
-    file: "GitHub / API",
-    func: "getCommit",
-    message: "Fetched commit",
-    obj: data,
-  });
-
   return mapToCommit(data);
 }
