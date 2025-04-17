@@ -6,6 +6,10 @@ import InlineCode from "@/components/ui/inline-code";
 import { githubDark } from "@uiw/codemirror-theme-github";
 import "./styles.css";
 import { useEditorHeight } from "@/hooks/useEditorHeight";
+import { customTheme } from "./theme";
+import { javascript } from "@codemirror/lang-javascript";
+import { useMemo } from "react";
+import { Mada } from "next/font/google";
 
 interface CodeProps {
   file: TFile | null;
@@ -42,6 +46,14 @@ export default function Code(props: CodeProps) {
 function CodeInner({ file }: CodeProps) {
   const { editorHeight } = useEditorHeight();
 
+  const extension = useMemo(() => {
+    if (file?.extension === "md") {
+      return markdown({ base: markdownLanguage, codeLanguages: languages });
+    }
+
+    return javascript({ jsx: true });
+  }, [file]);
+
   if (!file) {
     return (
       <div className="grid place-items-center h-full text-muted-foreground text-sm">
@@ -69,11 +81,9 @@ function CodeInner({ file }: CodeProps) {
       className="flex w-full"
       style={{ height: `${editorHeight}px` }}
       value={file.content}
-      theme={githubDark}
+      theme={customTheme}
       editable={false}
-      extensions={[
-        markdown({ base: markdownLanguage, codeLanguages: languages }),
-      ]}
+      extensions={[extension]}
     />
   );
 }
