@@ -16,6 +16,9 @@ import { isFolder } from "@/utils";
 import { Project } from "@/features/projects/types";
 import { Experience } from "@/features/experiences/types";
 import { Education } from "@/features/educations/types";
+import { contribution } from "@/content/contribution";
+import { envExample } from "@/content/env-example";
+import { gitIgnore } from "@/content/git-ignore";
 
 export default function Explorer({
   projects,
@@ -32,24 +35,10 @@ export default function Explorer({
 
   const content: FileTreeItem[] = [
     {
-      type: "file",
-      name: ".gitignore",
-      extension: "gitignore",
-      icon: "/icons/git.svg",
-      content: "/node_modules",
-    },
-    {
-      type: "file",
-      name: "README.md",
-      extension: "md",
-      icon: "/icons/readme.svg",
-      content: about,
-    },
-    {
       type: "folder",
-      name: "projects",
-      icon: "/icons/folder-project.svg",
-      children: projects.map(convertProjectToFileTreeItem),
+      name: "educations",
+      icon: "/icons/folder-education.svg",
+      children: educations.map(convertEducationToFileTreeItem),
     },
     {
       type: "folder",
@@ -59,9 +48,37 @@ export default function Explorer({
     },
     {
       type: "folder",
-      name: "educations",
-      icon: "/icons/folder-education.svg",
-      children: educations.map(convertEducationToFileTreeItem),
+      name: "projects",
+      icon: "/icons/folder-project.svg",
+      children: projects.map(convertProjectToFileTreeItem),
+    },
+    {
+      type: "file",
+      name: ".env.example",
+      extension: "env",
+      icon: "/icons/tune.svg",
+      content: envExample,
+    },
+    {
+      type: "file",
+      name: ".gitignore",
+      extension: "gitignore",
+      icon: "/icons/git.svg",
+      content: gitIgnore,
+    },
+    {
+      type: "file",
+      name: "CONTRIBUTING.md",
+      extension: "md",
+      icon: "/icons/contributing.svg",
+      content: contribution,
+    },
+    {
+      type: "file",
+      name: "README.md",
+      extension: "md",
+      icon: "/icons/readme.svg",
+      content: about,
     },
   ];
 
@@ -162,11 +179,13 @@ function ExplorerItem({
         onClick={handleSelect}
       >
         <div className="absolute h-6 w-full left-0 group-hover:bg-muted -z-10 pointer-events-none" />
-        <ChevronRight
-          className={`size-4 transition-transform ${
-            isFolder(item) ? "" : "opacity-0"
-          } ${expanded ? "rotate-90" : ""}`}
-        />
+        <div className="size-4">
+          <ChevronRight
+            className={`size-4 transition-transform ${
+              isFolder(item) ? "" : "opacity-0"
+            } ${expanded ? "rotate-90" : ""}`}
+          />
+        </div>
         {item.icon ? (
           <img src={item.icon} alt={item.name} className="h-4" />
         ) : isFolder(item) ? (

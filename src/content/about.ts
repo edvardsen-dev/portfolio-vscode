@@ -39,9 +39,9 @@ I'm always open to connecting! Feel free to reach out:
 *   [GitHub](https://github.com/jKm00)
 *   [Email](mailto:joakimedvardsen2000@gmail.com)
 
----
-
 Thanks for stopping by!
+
+---
 
 
 `;

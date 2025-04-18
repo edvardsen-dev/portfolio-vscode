@@ -9,7 +9,6 @@ import { useEditorHeight } from "@/hooks/useEditorHeight";
 import { customTheme } from "./theme";
 import { javascript } from "@codemirror/lang-javascript";
 import { useMemo } from "react";
-import { Mada } from "next/font/google";
 
 interface CodeProps {
   file: TFile | null;

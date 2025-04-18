@@ -8,7 +8,7 @@ export type TFolder = {
 export type TFile = {
   type: "file";
   name: string;
-  extension: "md" | "json" | "js" | "ts" | "gitignore";
+  extension: "md" | "json" | "js" | "ts" | "gitignore" | "env";
   icon?: string;
   content: string;
 };
