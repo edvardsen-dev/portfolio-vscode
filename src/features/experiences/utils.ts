@@ -52,8 +52,10 @@ function experienceToMarkdown(experience: Experience): string {
     markdown += `### Technologies\n\n`;
     markdown += `${experience.technologies
       .map((tech) => `- [x] ${tech}`)
-      .join("\n")}\n\n`;
+      .join("\n")}\n`;
   }
+
+  markdown += "\n --- \n";
 
   return markdown;
 }
